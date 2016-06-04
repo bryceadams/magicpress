@@ -14,7 +14,7 @@ nconf.load();
 
 // config command
 program
-  .version('1.0.3')
+  .version('1.0.4')
   .command('config')
   .description('Configure your settings')
   .action(function(req,optional){
@@ -44,7 +44,7 @@ program
 
 // new site command
 program
-  .version('1.0.3')
+  .version('1.0.4')
   .arguments('<project>')
   .option('-e, --empty', 'Empty site')
   .option('-d, --dev', 'Developer tools')
@@ -53,6 +53,22 @@ program
   .action(function(project) {
     // load config
     nconf.load();
+
+    // check valet + wp-cli + mysql installed
+    if (! shell.which('valet')) {
+      console.log(chalk.bold.red('Valet is required to use MagicPress! ') + chalk.bold.green('Get it here: ') + 'https://laravel.com/docs/5.2/valet');
+      process.exit(1);
+    }
+
+    if (! shell.which('wp')) {
+      console.log(chalk.bold.red('WP-CLI is required to use MagicPress! ') + chalk.bold.green('Get it here: ') + 'https://wp-cli.org/');
+      process.exit(1);
+    }
+
+    if (! shell.which('mysql')) {
+      console.log(chalk.bold.red('MySQL (command line) is required to use MagicPress! ') + chalk.bold.green('Get it here: ') + 'https://www.mysql.com/');
+      process.exit(1);
+    }
 
     // let them know we're creating
     console.log(chalk.green('Got it! Creating ') + chalk.bold.green(project) + chalk.green('...'));
@@ -120,7 +136,7 @@ program.parse(process.argv);
 
 // default help message
 program
-  .version('1.0.3')
+  .version('1.0.4')
   .command('*')
   .parse(process.argv);
 
