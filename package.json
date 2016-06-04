@@ -1,6 +1,6 @@
 {
   "name": "magicpress",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Command line tool to quickly spin up WordPress dev environments - like magic",
   "main": "index.js",
   "scripts": {

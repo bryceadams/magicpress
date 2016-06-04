@@ -14,9 +14,9 @@ nconf.load();
 
 // config command
 program
-  .version('1.0.2')
+  .version('1.0.3')
   .command('config')
-  .description('Configure your VP setup')
+  .description('Configure your settings')
   .action(function(req,optional){
     co(function *() {
       // prompt and get mysql user/pass
@@ -44,12 +44,12 @@ program
 
 // new site command
 program
-  .version('1.0.2')
+  .version('1.0.3')
   .arguments('<project>')
   .option('-e, --empty', 'Empty site')
   .option('-d, --dev', 'Developer tools')
   .option('-w, --woocommerce', 'WooCommerce site')
-  .command('new')
+  .command('new <project>')
   .action(function(project) {
     // load config
     nconf.load();
@@ -60,11 +60,13 @@ program
     // go
     shell.mkdir(project);
     shell.cd(project);
-    shell.exec('mysql -u ' + nconf.get('mysql:user') + ' -p' + nconf.get('mysql:password') + ' -e "CREATE DATABASE ' + project + '"', {silent:true});
 
     // some vars
     const mysqlUser = nconf.get('mysql:user') ? nconf.get('mysql:user') : 'root';
     const mysqlPassword = nconf.get('mysql:password') ? nconf.get('mysql:password') : 'root';
+
+    // create mysql db
+    shell.exec('mysql -u ' + mysqlUser + ' -p' + mysqlPassword + ' -e "CREATE DATABASE ' + project + '"', {silent:true});
 
     // wordpress install and config
     shell.exec('wp core download');
@@ -115,3 +117,17 @@ program
   });
 
 program.parse(process.argv);
+
+// default help message
+program
+  .version('1.0.3')
+  .command('*')
+  .parse(process.argv);
+
+if (!process.argv.slice(2).length) {
+  program.outputHelp(styleHelp);
+}
+
+function styleHelp(text) {
+  return chalk.green(text);
+}
