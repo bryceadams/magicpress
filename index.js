@@ -14,7 +14,7 @@ nconf.load();
 
 // config command
 program
-  .version('1.0.1')
+  .version('1.0.2')
   .command('config')
   .description('Configure your VP setup')
   .action(function(req,optional){
@@ -44,7 +44,7 @@ program
 
 // new site command
 program
-  .version('1.0.1')
+  .version('1.0.2')
   .arguments('<project>')
   .option('-e, --empty', 'Empty site')
   .option('-d, --dev', 'Developer tools')
