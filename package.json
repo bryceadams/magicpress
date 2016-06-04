@@ -1,0 +1,27 @@
+{
+  "name": "magicpress",
+  "version": "1.0.2",
+  "description": "Command line tool to quickly spin up WordPress dev environments - like magic",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Bryce Adams",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/bryceadams/magicpress.git"
+  },
+  "dependencies": {
+    "chalk": "^1.1.3",
+    "co": "^4.6.0",
+    "co-prompt": "^1.0.0",
+    "commander": "^2.9.0",
+    "fs": "0.0.2",
+    "nconf": "^0.8.4",
+    "shelljs": "^0.7.0"
+  },
+  "bin": {
+    "mp": "./index.js"
+  }
+}
